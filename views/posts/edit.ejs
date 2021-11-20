@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Edit Post</title>
+</head>
+<body>
+	<h1>Edit Article</h1>
+	<a href="/posts">Back</a>
+	<form action="/posts/<%= post._id %>?_method=PATCH" method="POST">
+		<div>
+			<label for="title">Title</label>
+			<input type="text" name="title" id="title" value="<%= post.title %> ">
+		</div>
+		<div>
+			<label for="content">Article</label>
+			<textarea name="content" id="content" cols="30" rows="10"><%= post.content %></textarea>
+		</div>
+		<!-- <div>
+			<label for="content">Date</label>
+			<input type="date" name="content" id="content" value="<%= post.date %>">
+		</div> -->
+		<button>Submit</button>
+	</form>
+</body>
+</html>
