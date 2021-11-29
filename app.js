@@ -66,8 +66,12 @@ app.get('/posts/:id', async (req, res) => {
 	const id = req.params.id;
 	const post = await Post.findById(id);
 	res.render('posts/show', { post });
-})
-;
+});
+
+app.use((req, res, next) => {
+	res.render('404');
+});
+
 app.listen(PORT, () => {
 	console.log(chalk.blueBright(`LISTENING ON PORT: ${PORT}`));
 });
