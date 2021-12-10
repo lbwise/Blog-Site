@@ -8,6 +8,10 @@ const Post = require('./models/Post');
 const app = express();
 const PORT = 3000
 
+const postRoutes = require('./routes/postRoutes');
+
+app.use('/posts', postRoutes)
+
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'));
 app.set('view engine', 'ejs');
@@ -28,39 +32,6 @@ mongoose.connect('mongodb://localhost:27017/blog', {
 		console.log(err);
 	});
 
-app.get('/posts', async (req, res) => {
-	const posts = await Post.find({})
-	res.render('posts/home', { posts });
-});
-
-app.get('/posts/new', (req, res) => {
-	res.render('posts/new');
-});
-
-app.post('/posts', async (req, res) => {
-	const newPostData = req.body;
-	const newPost = new Post(newPostData);
-	await newPost.save();
-	res.redirect(`/posts/${newPost._id}`);
-});
-
-app.delete('/posts/:id', async (req, res) => {
-	const id = req.params.id;
-	await Post.findByIdAndDelete(id);
-	res.redirect('/posts')
-});
-
-app.get('/posts/:id/edit', async (req, res) => {
-	const id = req.params.id;
-	const post = await Post.findById(id);
-	res.render('posts/edit', { post });
-})
-
-app.patch('/posts/:id', async (req, res) => {
-	const { title, content } = req.body;
-	const post = await Post.findByIdAndUpdate(req.params.id, { title: title, content: content});
-	res.redirect(`/posts/${post._id}`);
-});
 
 app.get('/posts/:id', async (req, res) => {
 	const id = req.params.id;
