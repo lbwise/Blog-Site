@@ -1,29 +1,19 @@
 const { Schema, model } = require('mongoose');
+const passport = require('')
 
 const userSchema = Schema({
-	username: {
+	email: {
 		type: String,
-		require: [true, 'Username Required'],
-		maxLength: 10,
-		minLenght: 0,
+		required: true,
 	},
-	password: {
-		type: String,
-		require: [true, 'Password Required'],
-		maxLength: 10,
-		minLenght: 0,
-	},
-	premium: {
-		type: Boolean,
-		default: false,
-	},
-	articles: {
+	articles: [{
 		type: Schema.Types.ObjectID,
 		ref: 'Post',
+	}],
+	userCreated: {
+		type: Date,
+		default: Date.now(),
 	},
-	userCreated: Date,
-
-
 }) 
 
 module.exports = model('User', userSchema);
