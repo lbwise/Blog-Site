@@ -4,9 +4,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../css/show.css">
 	<title>Blog</title>
 </head>
 <body>
+	<article>
+		<div class="title">
+			<h1><%= post.title %></h1>
+		</div>
+	</article>
 	<span>
 		<a href="/posts">Back</a>
 		<a href="/posts/<%= post._id %>/edit">Edit</a>
@@ -15,8 +21,13 @@
 		</form>
 		<!-- <a href="/posts/<%= post._id %>/edit">Edit</a> -->
 	</span>
+	<span>
+		<button class="likeBtn">Like</button>
+		<p class="likes">0</p>
+	</span>
 	<h1><%= post.title %></h1>
-	<h4>Created: <%= post.date.toLocaleString() %></h4>
+	<h4>Created on <%= post.date.toLocaleString() %> by <%= post.author %></h4>
 	<p><%= post.content %></p>
+	<script src='../js/show.js'></script>
 </body>
 </html>
