@@ -1,13 +1,20 @@
 const express = require('express');
+const Post = require('../models/Post'); 
 const router = express.Router();
 
-router.get('', async (req, res) => {
+router.get('/', async (req, res) => {
 	const posts = await Post.find({})
 	res.render('posts/home', { posts });
 });
 
 router.get('/new', (req, res) => {
 	res.render('posts/new');
+});
+
+router.get('/:id', async (req, res) => {
+	const id = req.params.id;
+	const post = await Post.findById(id);
+	res.render('posts/show', { post });
 });
 
 router.post('/', async (req, res) => {
