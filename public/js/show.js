@@ -1,21 +1,16 @@
-// const axios = require('axios');
 const likeBtn = document.querySelector('.likeBtn');
-const likes = document.querySelector('.likes');
-const url = document.URL;
-console.log(url.splice(20));
-console.log(likes.innerHTML);
+const likeDis = document.querySelector('.likes');
+const id = document.URL.slice(28);
+let liked = true
 
-const newLike = async () => {
-	console.log('liked')
-	// const res = await axios({
-	// 	method: 'post',
-	// 	url: '/posts/:id/',
-	// 	data: {
-	// 		increment: 1,
-	// 		count: likes.innerHTML,
-	// 	}
-	// });
-	// console.log(res);
-}
-
-likeBtn.addEventListener('click', newLike);
+likeBtn.addEventListener('click', async () => {
+	if (liked) {
+		likeBtn.innerHTML = 'Liked';
+		likeDis.innerHTML = parseInt(likeDis.innerHTML) + 1;
+	} else {
+		likeBtn.innerHTML = 'Like';
+		likeDis.innerHTML = parseInt(likeDis.innerHTML) - 1;
+	}
+	await axios.post(`/posts/${id}`, { liked });
+	liked = liked ? false : true;
+});

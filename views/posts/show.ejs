@@ -14,20 +14,25 @@
 		</div>
 	</article>
 	<span>
-		<a href="/posts">Back</a>
-		<a href="/posts/<%= post._id %>/edit">Edit</a>
-		<form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-			<button>Delete</button>
-		</form>
+		<div><a href="/posts">Back</a></div>
+		<% if (isCreator) { %>
+			<div><a href="/posts/<%= post._id %>/edit">Edit</a></div>
+			<div>
+				<form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+					<button>Delete</button>
+				</form>
+			</div>
+		<% } %>
 		<!-- <a href="/posts/<%= post._id %>/edit">Edit</a> -->
 	</span>
 	<span>
 		<button class="likeBtn">Like</button>
-		<p class="likes">0</p>
+		<p class="likes"><%= post.likes %></p>
 	</span>
 	<h1><%= post.title %></h1>
-	<h4>Created on <%= post.date.toLocaleString() %> by <%= post.author %></h4>
+	<h4>Created on <%= post.date.toLocaleString() %> by <%= post.user ? post.user.username : 'anononymous' %></h4>
 	<p><%= post.content %></p>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src='../js/show.js'></script>
 </body>
 </html>

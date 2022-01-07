@@ -4,6 +4,7 @@ const logger = require('morgan');
 const passport = require('passport');
 const LocalStrat = require('passport-local');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const chalk = require('chalk');
 const path = require('path');
@@ -18,6 +19,7 @@ connectDb();
 
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'));
+app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); 
 app.use(logger('dev'));
@@ -36,6 +38,11 @@ app.use(passport.session());
 passport.use(new LocalStrat(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+	req.session.currentUser = req.user;
+	next();
+});
 
 app.use('/', userRoutes);
 app.use('/posts', postRoutes);
