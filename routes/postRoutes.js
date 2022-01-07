@@ -5,10 +5,8 @@ const User = require('../models/User');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-	console.log(req.session.currentUser);
 	const posts = await Post.find({})
-	const user = req.session.currentUser
-	res.render('posts/home', { posts, user });
+	res.render('posts/home', { posts });
 });
 
 router.get('/new', isLoggedIn, (req, res) => {
@@ -18,7 +16,9 @@ router.get('/new', isLoggedIn, (req, res) => {
 router.get('/:id', isLoggedIn, async (req, res) => {
 	const id = req.params.id;
 	const post = await Post.findById(id).populate('user');
-	if (post.user.username === req.session.currentUser.username) {
+	if (!post.user) {
+		isCreator = false
+	} else if (post.user.username === req.user.username) {
 		isCreator = true;
 	} else {
 		isCreator = false
@@ -29,7 +29,7 @@ router.get('/:id', isLoggedIn, async (req, res) => {
 router.post('/', isLoggedIn, async (req, res) => {
 	const { title, content } = req.body;
 	const newPost = new Post({title, content, user: req.user});
-	const user = await User.findById(req.session.currentUser._id);
+	const user = await User.findById(req.user._id);
 	user.articles.push(newPost);
 	await newPost.save();
 	await user.save()
@@ -50,7 +50,7 @@ router.get('/:id/edit', isLoggedIn, async (req, res) => {
 
 router.patch('/:id', isLoggedIn, async (req, res) => {
 	const { title, content } = req.body;
-	const post = await Post.findByIdAndUpdate(req.params.id, { title: title, content: content});
+	const post = await Post.findByIdAndUpdate(req.params.id, { title, content });
 	res.redirect(`posts/${post._id}`);
 });
 

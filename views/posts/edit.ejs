@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Edit Post</title>
-</head>
-<body>
+<% layout("layouts/boilerplate") %>
 	<h1>Edit Article</h1>
 	<a href="/posts">Back</a>
 	<form action="/posts/<%= post._id %>?_method=PATCH" method="POST">
@@ -24,5 +16,3 @@
 		</div> -->
 		<button>Submit</button>
 	</form>
-</body>
-</html>
