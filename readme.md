@@ -7,7 +7,7 @@ This is a basic blog site where articles can be published read edited or removed
 
 **Endpoints:**
 
-**/posts ** - shows all articles written
+**/posts** - shows all articles written
 
 **/posts/id** - individual article identified with a unique id
 
