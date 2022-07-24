@@ -7,11 +7,17 @@ Functionality:
 
 Endpoints:
 /posts - shows all articles written
+
 /posts/id - individual article identified with a unique id
+
 /posts/new - write a new article
+
 /posts/id/edit - alter a current article (Authorization required)
+
 /profile - profile of authenticated user
+
 /login - current user sign in
+
 /register - create new user
 
 Stack:
