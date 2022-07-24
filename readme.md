@@ -1,26 +1,27 @@
-This is a basic blog site where articles can be published read edited or removed
+This is a basic blog site where articles can be published read edited or removed.
 
-Functionality:
+**Functionality:**
 - User Authentication and Authorisation
 - Articles can be read and liked
 - Authors can write, edit and delete their articles
 
-Endpoints:
-/posts - shows all articles written
+**Endpoints:**
 
-/posts/id - individual article identified with a unique id
+**/posts ** - shows all articles written
 
-/posts/new - write a new article
+**/posts/id** - individual article identified with a unique id
 
-/posts/id/edit - alter a current article (Authorization required)
+**/posts/new** - write a new article
 
-/profile - profile of authenticated user
+**/posts/id/edit** - alter a current article (Authorization required)
 
-/login - current user sign in
+**/profile** - profile of authenticated user
 
-/register - create new user
+**/login** - current user sign in
 
-Stack:
+**/register** - create new user
+
+**Stack:**
 - Express.js framework used for the server
 - MongoDB database used for data persistance
 - ejs views used instead of a front-end framework for simplicity
