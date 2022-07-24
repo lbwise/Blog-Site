@@ -23,18 +23,18 @@ router.get('/login', (req, res) => {
 	res.render('user/login');
 });
 
-router.post('/login', passport.authenticate('local', { failiureFalsh: 'error', failiureRedirect: '/login' }), async (req, res) => {
+router.post('/login', passport.authenticate('local', { failiureFalsh: 'error', failiureRedirect: '/login' }), (req, res) => {
 	const path = req.session.returnTo || '/posts'
 	req.flash('success', `Welcome back ${req.user.username}`)
 	res.redirect(path);
 });
 
-router.post('/logout', async (req, res) => {
+router.post('/logout', (req, res) => {
 	req.logout();
 	res.redirect('/login');
 });
 
-router.get('/profile', isLoggedIn, async (req, res) => {
+router.get('/profile', isLoggedIn, (req, res) => {
 	res.render('user/profile');
 });
 
